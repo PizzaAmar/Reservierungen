@@ -1,42 +1,25 @@
-# reservierungen
+# Pizzahaus – Raumplan & Reservierungen
 
-This template should help get you started developing with Vue 3 in Vite.
+Internes Werkzeug zur Selbstplanung: Räume mit Tischen, Stühlen, Pflanzen, Theke usw. maßstabsgetreu einrichten und Reservierungen auf Tische legen.
 
-## Recommended IDE Setup
+- **`/raumplan`**: Räume anlegen (Breite × Länge in Metern), Objekte einfügen, verschieben, drehen, Größe ändern, Rückgängig/Wiederholen, Export/Import als JSON
+- **`/`**: Datum + Uhrzeit wählen, Tische grün (frei) / rot (belegt), Tisch anklicken → Reservierung anlegen; Warnung bei zu wenig Stühlen oder Doppelbelegung
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Daten liegen aktuell **nur im Browser** (localStorage). Zum Sichern oder Übertragen auf einen anderen Rechner: *Exportieren* / *Importieren*. Die Speicherschicht ist austauschbar (`src/storage/index.ts`), später kommt eine PHP/MySQL-Anbindung auf dem Hetzner-Webhosting dazu.
 
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Entwicklung
 
 ```sh
 npm install
+npm run dev      # Dev-Server
+npm test         # Logik-Tests (vitest)
+npm run build    # Typprüfung + Build nach dist/
 ```
 
-### Compile and Hot-Reload for Development
+## Aufbau
 
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+- `src/types.ts` – Datenmodell (alle Maße in cm)
+- `src/catalog.ts` – Objektvorlagen (hier neue Objekte/Standardgrößen ergänzen)
+- `src/stores/` – Pinia-Stores (Plan inkl. Undo, Reservierungen, automatisches Speichern)
+- `src/components/plan/` – SVG-Zeichenfläche und Objektdarstellung
+- `src/views/` – Reservierungs- und Editor-Ansicht

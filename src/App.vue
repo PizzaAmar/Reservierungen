@@ -1,47 +1,59 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="app">
+    <nav class="nav">
+      <strong class="brand">Pizzahaus</strong>
+      <RouterLink to="/">Reservierungen</RouterLink>
+      <RouterLink to="/raumplan">Raumplan bearbeiten</RouterLink>
+    </nav>
+    <div class="content">
+      <RouterView />
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-panel);
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+.brand {
+  margin-right: 16px;
+  color: var(--accent);
+  font-size: 18px;
+}
+.nav a {
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+}
+.nav a.router-link-exact-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+.content {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+}
+@media (max-width: 1000px) {
+  .app {
+    height: auto;
+    min-height: 100vh;
   }
 }
 </style>
